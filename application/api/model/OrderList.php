@@ -34,7 +34,7 @@ class OrderList extends Common {
         $data['check'] = OrderBody::where($conditions)->where(['is_check' => 'yes'])->count();
         if ($body === true) {
             $orderBodyModel=new OrderBody();
-            $item['body']=$orderBodyModel->getAll($where);
+            $data['body']=$orderBodyModel->getAll($where);
         }
         return $data ? $data->toArray() : array();
     }
