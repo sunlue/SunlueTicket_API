@@ -16,7 +16,8 @@ Route::group('api', function () {
         Route::any('reg', 'api/user.reg/index');//注册
         Route::any('info', 'api/user.user/info');//用户数据
         Route::group('weixin', function () {
-            Route::any('jscode2session', 'api/user.weixin/codeToSession');
+            Route::any('jscode2session', 'api/user.weixin/codeToSession');//小程序用户信息获取openid
+            Route::any('decrypt','api/user.weixin/codeToSession');//小程序用户信息解密
         });
     });
 
@@ -89,8 +90,8 @@ Route::group('api', function () {
     });
 
     Route::group('member', function () {
-        Route::any('login', 'api/member.login/index');
-        Route::any('reg', 'api/member.reg/index');//注册
+        Route::any('login', 'api/member.login/index');//会员登录
+        Route::any('reg', 'api/member.reg/index');//会员注册
     });
 
 }, array('method' => ['post', 'options', 'get']));

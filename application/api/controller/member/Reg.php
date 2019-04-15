@@ -34,6 +34,12 @@ class Reg extends Member {
                     $this->ajaxReturn(400, $check);
                 }
                 break;
+            case 'h5':
+                $check = $this->validate($param, 'MemberWeb.reg');
+                if ($check !== true) {
+                    $this->ajaxReturn(400, $check);
+                }
+                break;
         }
         $loginType = $param['login_type'];
         $this->$loginType($param);

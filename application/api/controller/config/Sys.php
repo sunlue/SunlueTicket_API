@@ -58,11 +58,15 @@ class Sys extends Api {
     }
 
     public static function obta($type) {
+        $arr = explode('.', $type);
+        if ($arr) {
+            $type = $arr[0];
+        }
         $sysConfigModel = new sysConfig();
         $data = $sysConfigModel->get(array(
             'provider' => $type
         ), true);
-        return $data ? $data['config'] : [];
+        return $data ? ($arr ? $data['config'][$arr[1]] : $data['config']) : [];
     }
 
 }

@@ -58,7 +58,7 @@ class Weixin extends Api {
         } elseif (!empty($orderInfo['unifiedorder'])) {
             $c = new \ticket\api\controller\order\Index();
             $result = $c->updateTradeNo(array(
-                'order_sn' => $param['order_sn']
+                'order_sn' => $param['order_sn'],
             ));
             if ($result['code'] != 0) {
                 $this->ajaxReturn(400, $result['msg']);
@@ -79,6 +79,8 @@ class Weixin extends Api {
             $attributes['openid'] = 'ok9y9jljolUEFK12M0im0t3zkeG4';
             //            $attributes['openid'] = $param['openid'];
         }
+
+
         $order = new \EasyWeChat\Payment\Order($attributes);
         $result = $this->weixin->payment->prepare($order);
         if ($result->return_code == 'SUCCESS' && $result->result_code == 'SUCCESS') {

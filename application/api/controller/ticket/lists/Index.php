@@ -8,6 +8,7 @@
 namespace ticket\api\controller\ticket\lists;
 
 use Think\Db;
+use think\facade\Cache;
 use think\facade\Hook;
 use ticket\api\model\TicketList;
 use ticket\api\model\TicketPrice;
@@ -18,8 +19,8 @@ class Index extends Api {
     private $ticketPriceModel;
 
     public function initialize() {
-        parent::_init();
-        parent::checkToken();
+//        parent::_init();
+//        parent::checkToken();
         $this->ticketListModel = new TicketList();
         $this->ticketPriceModel = new TicketPrice();
     }
