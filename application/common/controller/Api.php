@@ -11,6 +11,7 @@ use think\Controller;
 use think\facade\Hook;
 
 class Api extends Controller {
+
     public function _init() {
         //header('Access-Control-Allow-Origin:*');
         //header('Access-Control-Allow-Headers:content-type,AUTHORIZATION,AUTH_TOKEN,api-key');

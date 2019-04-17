@@ -11,13 +11,14 @@ Route::group('api', function () {
     Route::any('access_token', 'api/index.index/token');//access_token
     Route::any('upload', 'api/index.index/upload');//上传
     Route::any('removeUpload', 'api/index.index/removeUpload');//删除上传
+
     Route::group('user', function () {
         Route::any('login', 'api/user.login/index');//登录
         Route::any('reg', 'api/user.reg/index');//注册
         Route::any('info', 'api/user.user/info');//用户数据
         Route::group('weixin', function () {
             Route::any('jscode2session', 'api/user.weixin/codeToSession');//小程序用户信息获取openid
-            Route::any('decrypt','api/user.weixin/codeToSession');//小程序用户信息解密
+            Route::any('decrypt', 'api/user.weixin/codeToSession');//小程序用户信息解密
         });
     });
 
@@ -92,6 +93,16 @@ Route::group('api', function () {
     Route::group('member', function () {
         Route::any('login', 'api/member.login/index');//会员登录
         Route::any('reg', 'api/member.reg/index');//会员注册
+    });
+
+    Route::group('analyze', function () {
+        Route::group('order', function () {
+            Route::any('bar', 'api/analyze.order/index');//订单柱状图
+        });
+        Route::group('access', function () {
+            Route::any('visitor', 'api/analyze.access.visitor/get');
+            Route::any('referer', 'api/analyze.access.referer/get');
+        });
     });
 
 }, array('method' => ['post', 'options', 'get']));
