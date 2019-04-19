@@ -97,11 +97,16 @@ Route::group('api', function () {
 
     Route::group('analyze', function () {
         Route::group('order', function () {
-            Route::any('bar', 'api/analyze.order/index');//订单柱状图
+            Route::any('unified', 'api/analyze.order.unified/get');
         });
         Route::group('access', function () {
             Route::any('visitor', 'api/analyze.access.visitor/get');
             Route::any('referer', 'api/analyze.access.referer/get');
+            Route::any('traffic', 'api/analyze.access.traffic/get');
+        });
+        Route::group('ticket', function () {
+            Route::any('generate', 'api/analyze.ticket.generate/get');
+            Route::any('salas', 'api/analyze.ticket.salas/get');
         });
     });
 

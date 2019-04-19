@@ -33,3 +33,24 @@ if (!function_exists('xmltoarr')) {
         return json_decode(json_encode($re), true);
     }
 }
+
+/**
+ * 得到日期范围
+ * @param $start_date
+ * @param $end_date
+ * @return array
+ */
+if (!function_exists('get_date_from_range')) {
+    function get_date_from_range($start_date, $end_date, $format = '') {
+        $s_timestamp = strtotime($start_date);
+        $e_timestamp = strtotime($end_date);
+        // 计算日期段内有多少天
+        $days = ($e_timestamp - $s_timestamp) / 86400 + 1;
+        // 保存每天日期
+        $date = array();
+        for ($i = 0; $i < $days; $i++) {
+            $date[] = date('Y' . $format . 'm' . $format . 'd', $s_timestamp + (86400 * $i));
+        }
+        return $date;
+    }
+}
