@@ -13,6 +13,30 @@ use Think\Db;
 use ticket\common\controller\Api;
 
 class Total extends Api {
+
+    public function index(){
+        $data['member']=Db::field('COUNT(*) total,CONCAT(\'today\') AS `type`')
+            ->name('member_web web')
+            ->where('DATE_FORMAT(web.`add_time`,\'%Y-%m-%d\')=DATE_FORMAT(NOW(),\'%Y-%m-%d\')')
+            ->union(function ($query){
+                $query->field('COUNT(*) total,CONCAT(\'all\')')->name('member_web');
+            })->select();
+
+        $data['ticket']=Db::name('order_body')->field('COUNT(*) total,CONCAT(\'today\') AS `type`')
+            ->where('add_time is not null')
+            ->union(function ($query){
+                $query->field('COUNT(*) ,CONCAT(\'all\') AS `type`')
+                    ->where('DATE_FORMAT(add_time,\'%Y-%m-%d\')=DATE_FORMAT(NOW(),\'%Y-%m-%d\')')->name('order_body');
+            })->select();
+
+        $data['earn']=Db::name('order_body')->field('SUM(pay_money) AS total,CONCAT(\'all\') AS `type`')->where('state in (1,5)')
+            ->union(function ($query){
+                $query->name('order_body')->field('IFNULL(SUM(pay_money),0),CONCAT(\'today\')')
+                    ->where('state in (1,5) AND DATE_FORMAT(pay_time,\'%Y-%m-%d\')=DATE_FORMAT(NOW(),\'%Y-%m-%d\')');
+            })->fetchSql(false)->select();
+        $this->ajaxReturn(0,$data);
+    }
+
     public static function tempNumber($type = 'sql',$beginDate='',$afterDate='',$countSql='') {
         switch ($type) {
             case 'sql':

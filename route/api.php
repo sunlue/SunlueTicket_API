@@ -96,17 +96,17 @@ Route::group('api', function () {
     });
 
     Route::group('analyze', function () {
+        Route::any('basis', 'api/analyze.total/index');//基础统计
         Route::group('order', function () {
-            Route::any('unified', 'api/analyze.order.unified/get');
+            Route::any('unified', 'api/analyze.order.unified/get');//订单量分析
         });
         Route::group('access', function () {
-            Route::any('visitor', 'api/analyze.access.visitor/get');
-            Route::any('referer', 'api/analyze.access.referer/get');
-            Route::any('traffic', 'api/analyze.access.traffic/get');
+            Route::any('referer', 'api/analyze.access.referer/get');//访问来源分析
+            Route::any('traffic', 'api/analyze.access.traffic/get');//访问量分析
         });
         Route::group('ticket', function () {
-            Route::any('generate', 'api/analyze.ticket.generate/get');
-            Route::any('salas', 'api/analyze.ticket.salas/get');
+            Route::any('generate', 'api/analyze.ticket.generate/get');//出票分析
+            Route::any('salas', 'api/analyze.ticket.salas/get');//票务销售分析
         });
     });
 
